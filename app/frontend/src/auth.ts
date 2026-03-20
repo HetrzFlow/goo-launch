@@ -438,7 +438,7 @@ export function renderNav(): void {
       el(
         "a",
         {
-          href: "https://github.com/HertzFlow/goo-example",
+          href: "https://github.com/HertzFlow/goo-launch",
           target: "_blank",
           rel: "noopener",
           style: externalLinkStyle,
@@ -513,7 +513,7 @@ export function renderNav(): void {
       el(
         "a",
         {
-          href: "https://github.com/HertzFlow/goo-example",
+          href: "https://github.com/HertzFlow/goo-launch",
           target: "_blank",
           rel: "noopener",
           style: externalLinkStyle2,

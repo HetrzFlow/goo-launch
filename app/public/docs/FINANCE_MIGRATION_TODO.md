@@ -189,4 +189,4 @@ Finalize architecture: wallet as low-level adapter, finance managers/actions as 
 - [x] manual low-gas refill test
 - [ ] manual buyback test on testnet
 - [x] restart runtime and verify spend/earn logs are restored
-- [x] verify `goo-example` sidecar startup with updated `@devbond/gc` version
+- [x] verify `goo-launch` sidecar startup with updated `@devbond/gc` version

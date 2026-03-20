@@ -1,6 +1,6 @@
-# Target E2E Architecture: goo-example
+# Target E2E Architecture: goo-launch
 
-This document describes the **full target shape** of goo-example. The repo currently has only the framework; implementation will follow.
+This document describes the **full target shape** of goo-launch. The repo currently has only the framework; implementation will follow.
 
 ---
 

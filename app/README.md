@@ -1,6 +1,6 @@
 # app/ — Cloudflare Worker + Vite Frontend
 
-The **goo-example** application: a single Cloudflare Worker (Hono) that serves the API and the Vite-built frontend as static assets. Database: **Cloudflare D1** (SQLite). Optional: AGOS adapter, sandbox, LLM proxy.
+The **goo-launch** application: a single Cloudflare Worker (Hono) that serves the API and the Vite-built frontend as static assets. Database: **Cloudflare D1** (SQLite). Optional: AGOS adapter, sandbox, LLM proxy.
 
 ---
 

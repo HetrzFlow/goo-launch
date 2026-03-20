@@ -1,7 +1,7 @@
 {
   "name": "contracts",
   "version": "1.0.0",
-  "description": "goo-example smart contracts",
+  "description": "goo-launch smart contracts",
   "main": "index.js",
   "directories": {
     "test": "test"

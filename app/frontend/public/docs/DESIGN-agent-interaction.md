@@ -1,11 +1,11 @@
-# Design: Agent Interaction via goo-example UI
+# Design: Agent Interaction via goo-launch UI
 
 ## Problem Statement
 
-Currently the goo-example frontend cannot effectively interact with agents running in sandbox/BYOD environments:
+Currently the goo-launch frontend cannot effectively interact with agents running in sandbox/BYOD environments:
 
 1. **Chat doesn't go through OpenClaw** -- `/api/agents/:id/chat` calls the LLM API directly, bypassing the OpenClaw gateway inside the sandbox, so the agent has no context, memory, or tool-calling capabilities
-2. **BYOD is completely disconnected** -- In BYOD mode, users self-host OpenClaw, and the goo-example UI cannot connect
+2. **BYOD is completely disconnected** -- In BYOD mode, users self-host OpenClaw, and the goo-launch UI cannot connect
 3. **Sandbox state is invisible** -- The server has goo-core-status / restart-goo-core APIs, but the frontend doesn't call them
 4. **OpenClaw gateway token is not persisted** -- The token generated during Cloud sandbox creation is not saved to DB, making subsequent authentication impossible
 5. **Sandbox creation timing issue** -- `setupGooCoreInSandbox` is fire-and-forget, the gateway token is generated inside the function but not stored back, so the frontend cannot connect immediately after sandbox creation
@@ -87,11 +87,11 @@ POST /api/sandbox/create
 ## Architecture Overview
 
 ```
-                        goo-example UI (frontend)
+                        goo-launch UI (frontend)
                               │
                     POST /api/agents/:id/chat
                               │
-                      goo-example server
+                      goo-launch server
                          /          \
                         /            \
             [has gatewayUrl          [no gateway]
@@ -125,7 +125,7 @@ POST /api/sandbox/create
 ### D2: BYOD users register their endpoint URL via UI
 
 **Rationale:**
-- BYOD user's OpenClaw is on their own VPS; goo-example server needs the address to proxy
+- BYOD user's OpenClaw is on their own VPS; goo-launch server needs the address to proxy
 - Connectivity is verified during registration (calls `/healthz`)
 - Users can update the URL at any time
 
@@ -693,7 +693,7 @@ After the existing BYOD success page's Docker setup instructions, add:
 
 ```
 +-----------------------------------------------------+
-| Connect to goo-example                               |
+| Connect to goo-launch                               |
 |-----------------------------------------------------|
 | After starting your agent, register the gateway     |
 | so you can chat from this dashboard:                |

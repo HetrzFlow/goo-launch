@@ -1,4 +1,4 @@
-# goo-example 安装与设置
+# goo-launch 安装与设置
 
 本文档包含：如何安装、如何在本地运行 app 和合约，以及本地部署/运行的步骤。生产部署请参阅 [DEPLOY_CN.md](./DEPLOY_CN.md)。
 
@@ -18,7 +18,7 @@
 
 ```bash
 git clone <repo-url>
-cd goo-example
+cd goo-launch
 bun install
 ```
 

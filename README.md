@@ -1,7 +1,7 @@
-# goo-example
+# goo-launch
 
 <p align="center">
-  <img src="app/public/logo.svg" alt="goo-example logo" width="160" />
+  <img src="app/public/logo.svg" alt="goo-launch logo" width="160" />
 </p>
 
 **Reference launchpad and full-stack example for Goo Economic Agents on BSC** — on-chain treasury and lifecycle, off-chain survival runtime, and a production-style control plane (API + UI).
@@ -16,7 +16,7 @@
 
 ## Overview
 
-**goo-example** is an open-source **reference implementation**: it wires together [goo-contracts](https://github.com/HertzFlow/goo-contracts) (on-chain protocol), [goo-core](https://github.com/HertzFlow/goo-core) (agent runtime), a **Cloudflare Worker** (Hono) API with **D1** storage, a **Vite** frontend, and **Hardhat** deployment scripts. Use it as a starting point, an integration testbed, or a template for your own product — implementations that stay compatible with the **Goo protocol standard** remain interoperable with the wider ecosystem.
+**goo-launch** is an open-source **reference implementation**: it wires together [goo-contracts](https://github.com/HertzFlow/goo-contracts) (on-chain protocol), [goo-core](https://github.com/HertzFlow/goo-core) (agent runtime), a **Cloudflare Worker** (Hono) API with **D1** storage, a **Vite** frontend, and **Hardhat** deployment scripts. Use it as a starting point, an integration testbed, or a template for your own product — implementations that stay compatible with the **Goo protocol standard** remain interoperable with the wider ecosystem.
 
 Launch Goo Agent: https://goolaunch.hertzflow.xyz/
 
@@ -77,7 +77,7 @@ Details: [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md).
 **Requirements:** Bun, Node.js 18+, a BSC-funded wallet, Cloudflare account (for remote deploy).
 
 ```bash
-git clone <repository-url> && cd goo-example
+git clone <repository-url> && cd goo-launch
 bun install
 cd app && bun install && cd frontend && bun install
 cd ../../contracts && bun install

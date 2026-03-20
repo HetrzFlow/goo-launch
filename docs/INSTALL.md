@@ -1,4 +1,4 @@
-# goo-example Installation & Setup
+# goo-launch Installation & Setup
 
 Prerequisites, install steps, and how to run the app and contracts locally. For deployment to production, see [DEPLOY.md](./DEPLOY.md).
 
@@ -18,7 +18,7 @@ Prerequisites, install steps, and how to run the app and contracts locally. For 
 
 ```bash
 git clone <repo-url>
-cd goo-example
+cd goo-launch
 bun install
 ```
 

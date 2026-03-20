@@ -1,6 +1,6 @@
 # 部署指南
 
-本文档讲解如何部署 `goo-example` 的两个核心组件：
+本文档讲解如何部署 `goo-launch` 的两个核心组件：
 
 1. **智能合约**（一次性基础设施 + 每个代理的 token）部署到 BSC
 2. **Cloudflare Worker**（后端 API + 前端）部署到 Cloudflare

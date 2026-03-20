@@ -1,7 +1,7 @@
-# goo-example
+# goo-launch
 
 <p align="center">
-  <img src="app/public/logo.svg" alt="goo-example logo" width="160" />
+  <img src="app/public/logo.svg" alt="goo-launch logo" width="160" />
 </p>
 
 **BSC 上 Goo 经济代理的参考启动台与全栈示例**——链上 treasury 与生命周期，链下生存运行时，以及面向生产的控制面（API + UI）。
@@ -16,7 +16,7 @@
 
 ## 概览（Overview）
 
-**goo-example** 是一个开源**参考实现**：它把 [goo-contracts](https://github.com/HertzFlow/goo-contracts)（链上协议）、[goo-core](https://github.com/HertzFlow/goo-core)（代理运行时）、**Cloudflare Worker**（Hono）API + **D1** 存储、**Vite** 前端，以及 Hardhat 部署脚本连接成一个可用的整合示例。你可以把它当作起点、集成测试台，或模板来构建自己的产品——只要实现与 **Goo 协议标准（Goo protocol standard）**保持兼容，就能与更广泛的生态互操作。
+**goo-launch** 是一个开源**参考实现**：它把 [goo-contracts](https://github.com/HertzFlow/goo-contracts)（链上协议）、[goo-core](https://github.com/HertzFlow/goo-core)（代理运行时）、**Cloudflare Worker**（Hono）API + **D1** 存储、**Vite** 前端，以及 Hardhat 部署脚本连接成一个可用的整合示例。你可以把它当作起点、集成测试台，或模板来构建自己的产品——只要实现与 **Goo 协议标准（Goo protocol standard）**保持兼容，就能与更广泛的生态互操作。
 
 ---
 
@@ -77,7 +77,7 @@ Goo 协议定义了规范的外壳（normative surface）：生命周期（ACTIV
 **需求：** Bun、Node.js 18+、一个已为 BSC 资金提供（funded）的钱包，以及 Cloudflare 账号（用于远程部署）。
 
 ```bash
-git clone <repository-url> && cd goo-example
+git clone <repository-url> && cd goo-launch
 bun install
 cd app && bun install && cd frontend && bun install
 cd ../../contracts && bun install

@@ -100,7 +100,7 @@ await usdt.connect(wallet).approve(
 );
 ```
 
-### 2. goo-example Configuration
+### 2. goo-launch Configuration
 
 Configure bsc-llm-router in `server/.env`:
 
@@ -207,7 +207,7 @@ const domain = {
 | `src/index.ts` | x402 middleware: 402 response -> verify signature -> settle |
 | `deploy/openclaw/x402-proxy/proxy.mjs` | Alternative: standalone proxy (for OpenClaw) |
 
-### goo-example (Integration config)
+### goo-launch (Integration config)
 
 | File | Description |
 |------|-------------|

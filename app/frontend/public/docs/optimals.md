@@ -1,11 +1,11 @@
-To start with the conclusion: this project already has a very clear **Agent lifecycle skeleton** -- creating an Agent, choosing a runtime mode (Cloud / BYOD), injecting identity/instructions/skills/memory, deploying an on-chain token, and then having the server/runtime run goo-core. This information is clearly visible on the pages. ([902c4c40.goo-example.pages.dev][1])
+To start with the conclusion: this project already has a very clear **Agent lifecycle skeleton** -- creating an Agent, choosing a runtime mode (Cloud / BYOD), injecting identity/instructions/skills/memory, deploying an on-chain token, and then having the server/runtime run goo-core. This information is clearly visible on the pages. ([902c4c40.goo-launch.pages.dev][1])
 
 The question of "**how to optimize sandbox and agent interaction**" can be understood at two levels:
 
 1. **Product interaction layer**: How users understand "what the Agent is thinking / doing / has done in the sandbox"
 2. **System architecture layer**: How to make the protocol, state management, execution feedback, and resource isolation for agent-sandbox communication smoother
 
-I wasn't able to fully capture the dynamic content of the specific agent detail page you shared, so I can't critique that page line by line; but from the publicly exposed site structure and the runtime approach this project reveals, there's enough to provide a set of optimization directions that closely fit this project. The pages show it supports Cloud and BYOD as two runtimes -- Cloud mode runs goo-core automatically on the server, while BYOD is self-hosted by the user; meanwhile the agent's "persona/instructions/skills/initial knowledge" are injected via soul.md, agent.md, skills.md, and memory.md. ([902c4c40.goo-example.pages.dev][2])
+I wasn't able to fully capture the dynamic content of the specific agent detail page you shared, so I can't critique that page line by line; but from the publicly exposed site structure and the runtime approach this project reveals, there's enough to provide a set of optimization directions that closely fit this project. The pages show it supports Cloud and BYOD as two runtimes -- Cloud mode runs goo-core automatically on the server, while BYOD is self-hosted by the user; meanwhile the agent's "persona/instructions/skills/initial knowledge" are injected via soul.md, agent.md, skills.md, and memory.md. ([902c4c40.goo-launch.pages.dev][2])
 From the perspective of common Agent Sandbox practices, the best approach for agent runtime isn't "treating the sandbox as a one-off command executor," but rather treating it as **a singleton runtime environment with a stable identity, good isolation, and persistent existence**. The Kubernetes SIG's agent-sandbox explicitly emphasizes this "stateful, singleton workload with a stable identity" model. ([GitHub][3])
 
 ## Most Likely Problems with This Project Right Now
@@ -246,11 +246,11 @@ Add approval gates for high-risk operations:
 * Long-running operations
 * Exporting sensitive artifacts
 
-This is especially important for this project since it includes wallets, tokens, and an on-chain registry. The creation page already explicitly involves MetaMask, contract deployment, on-chain registration, token allocation, and economic parameters, so execution actions should ideally have "simulate / real execution" modes in the UI. ([902c4c40.goo-example.pages.dev][2])
+This is especially important for this project since it includes wallets, tokens, and an on-chain registry. The creation page already explicitly involves MetaMask, contract deployment, on-chain registration, token allocation, and economic parameters, so execution actions should ideally have "simulate / real execution" modes in the UI. ([902c4c40.goo-launch.pages.dev][2])
 
 ### 3. Don't Over-Automate Memory Write-Back
 
-There's already `memory.md` for initial knowledge input. ([902c4c40.goo-example.pages.dev][2])
+There's already `memory.md` for initial knowledge input. ([902c4c40.goo-launch.pages.dev][2])
 I recommend splitting new knowledge generated during runtime into:
 
 * session memory (only for the current task)
@@ -353,13 +353,13 @@ Just changing these few status messages will noticeably improve users' perceptio
 ## My Assessment of This Project
 
 This project doesn't lack an agent -- it lacks **a visible execution layer that ties agent, sandbox, memory, and artifacts together**.
-The creation entry point already shows that its configuration dimensions are quite complete: identity, instructions, skills, memory, runtime mode, and on-chain deployment are all covered. ([902c4c40.goo-example.pages.dev][2])
+The creation entry point already shows that its configuration dimensions are quite complete: identity, instructions, skills, memory, runtime mode, and on-chain deployment are all covered. ([902c4c40.goo-launch.pages.dev][2])
 The next most important thing to add isn't another feature button, but to productize "the process of the agent doing work."
 
 
 **Wireframe structure for "agent detail page / chat + sandbox coordination page" + field design + frontend state machine definition**.
 
-[1]: https://902c4c40.goo-example.pages.dev/ "Agents - Example Goo"
-[2]: https://902c4c40.goo-example.pages.dev/launch.html "Launch Agent - Example Goo"
+[1]: https://902c4c40.goo-launch.pages.dev/ "Agents - Example Goo"
+[2]: https://902c4c40.goo-launch.pages.dev/launch.html "Launch Agent - Example Goo"
 [3]: https://github.com/kubernetes-sigs/agent-sandbox?utm_source=chatgpt.com "GitHub - kubernetes-sigs/agent-sandbox"
 [4]: https://www.heroku.com/blog/code-execution-sandbox-for-agents-on-heroku/?utm_source=chatgpt.com "Code Execution Sandbox for Agents on Heroku"

@@ -4,7 +4,7 @@
  * Uses Permit2 PermitWitnessTransferFrom flow (same as bsc-llm-router playground).
  * Works with any ERC20 token — no EIP-3009 required.
  *
- * All requests go through the goo-example server proxy (/api/sandbox/create)
+ * All requests go through the goo-launch server proxy (/api/sandbox/create)
  * which forwards payment headers to the sandbox-manager Worker.
  *
  * Flow:

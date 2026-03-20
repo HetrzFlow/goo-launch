@@ -1,5 +1,5 @@
 {
-  "name": "goo-example",
+  "name": "goo-launch",
   "version": "0.1.0",
   "description": "End-to-end example: Cloudflare Worker + agent (OpenClaw) + LLM router + goo-core as system sidecar, interacting with goo-contracts",
   "type": "module",

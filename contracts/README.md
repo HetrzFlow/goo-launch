@@ -2,7 +2,7 @@
 
 # contracts/
 
-This directory is the Hardhat project for `goo-example`. It does **not** contain its own contract implementations — it uses:
+This directory is the Hardhat project for `goo-launch`. It does **not** contain its own contract implementations — it uses:
 
 - [`goo-contracts`](../../packages/goo-contracts) — Goo Economic Agent on-chain economic life: token standard + registry interfaces + reference implementations (`GooAgentToken`, `GooAgentRegistry`)
 - [`goo-core`](../../packages/goo-core) — Off-chain economic life (survival economics, economic awareness, autonomous behavior)

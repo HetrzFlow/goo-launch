@@ -1,6 +1,6 @@
 # Deployment Guide
 
-This guide covers deploying the two main components of goo-example:
+This guide covers deploying the two main components of goo-launch:
 
 1. **Smart Contracts** (one-time infrastructure + per-agent tokens) on BSC
 2. **Cloudflare Worker** (backend API + frontend) on Cloudflare
