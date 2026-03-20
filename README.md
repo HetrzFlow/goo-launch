@@ -18,6 +18,8 @@
 
 **goo-example** is an open-source **reference implementation**: it wires together [goo-contracts](https://github.com/HertzFlow/goo-contracts) (on-chain protocol), [goo-core](https://github.com/HertzFlow/goo-core) (agent runtime), a **Cloudflare Worker** (Hono) API with **D1** storage, a **Vite** frontend, and **Hardhat** deployment scripts. Use it as a starting point, an integration testbed, or a template for your own product — implementations that stay compatible with the **Goo protocol standard** remain interoperable with the wider ecosystem.
 
+Launch Goo Agent: https://goolaunch.hertzflow.xyz/
+
 ---
 
 ## Background
@@ -38,11 +40,11 @@ This repository is **one** full-stack layout (Worker + UI + contracts + runtime)
 
 ## Features
 
-| Area              | What this repo demonstrates                                                                                       |
-| ----------------- | ----------------------------------------------------------------------------------------------------------------- |
-| **Launch**        | Two-step flow: prepare → user deploys `GooAgentToken` (e.g. MetaMask) → confirm; registry integration.            |
+| Area              | What this repo demonstrates                                                                                                           |
+| ----------------- | ------------------------------------------------------------------------------------------------------------------------------------- |
+| **Launch**        | Two-step flow: prepare → user deploys `GooAgentToken` (e.g. MetaMask) → confirm; registry integration.                                |
 | **Runtime**       | [goo-core](https://github.com/HertzFlow/goo-core) sidecar: chain monitor, survival (Pulse, SurvivalSell, gas), optional OpenClaw/LLM. |
-| **Control plane** | JWT auth, agents CRUD, dashboard, admin; optional sandbox and [AGOS](docs/AGOS_API.md) adapter.                   |
+| **Control plane** | JWT auth, agents CRUD, dashboard, admin; optional sandbox and [AGOS](docs/AGOS_API.md) adapter.                                       |
 
 ---
 
@@ -59,14 +61,14 @@ Details: [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md).
 
 ## Repository layout
 
-| Path                                               | Role                                                                                     |
-| -------------------------------------------------- | ---------------------------------------------------------------------------------------- |
-| [app/](app/)                                       | Worker (Hono), frontend, D1 migrations, Wrangler config.                                 |
-| [contracts/](contracts/)                           | Hardhat; uses [goo-contracts](https://github.com/HertzFlow/goo-contracts). Infra + per-agent deploy scripts. |
-| [goo-contracts](https://github.com/HertzFlow/goo-contracts) | On-chain interfaces and reference implementations. |
-| [goo-core](https://github.com/HertzFlow/goo-core)     | Off-chain runtime (survival, finance hooks, autonomy). |
-| [deploy/](deploy/)                                 | Docker / BYOD images and helpers for OpenClaw + goo-core.                                |
-| [docs/](docs/)                                     | Architecture, install, deploy, AGOS API, protocol standard.                              |
+| Path                                                        | Role                                                                                                         |
+| ----------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------ |
+| [app/](app/)                                                | Worker (Hono), frontend, D1 migrations, Wrangler config.                                                     |
+| [contracts/](contracts/)                                    | Hardhat; uses [goo-contracts](https://github.com/HertzFlow/goo-contracts). Infra + per-agent deploy scripts. |
+| [goo-contracts](https://github.com/HertzFlow/goo-contracts) | On-chain interfaces and reference implementations.                                                           |
+| [goo-core](https://github.com/HertzFlow/goo-core)           | Off-chain runtime (survival, finance hooks, autonomy).                                                       |
+| [deploy/](deploy/)                                          | Docker / BYOD images and helpers for OpenClaw + goo-core.                                                    |
+| [docs/](docs/)                                              | Architecture, install, deploy, AGOS API, protocol standard.                                                  |
 
 ---
 
@@ -135,19 +137,19 @@ Extended guides: [docs/INSTALL.md](docs/INSTALL.md), [docs/DEPLOY.md](docs/DEPLO
 
 ## Documentation
 
-| Document                                                             | Description                       | 中文 |
-| -------------------------------------------------------------------- | --------------------------------- | ---- |
-| [docs/README.md](docs/README.md)                                     | Documentation index               | [docs/README_CN.md](docs/README_CN.md) |
-| [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md)                         | System architecture and data flow | [docs/ARCHITECTURE_CN.md](docs/ARCHITECTURE_CN.md) |
-| [docs/INSTALL.md](docs/INSTALL.md)                                   | Local setup and development       | [docs/INSTALL_CN.md](docs/INSTALL_CN.md) |
-| [docs/DEPLOY.md](docs/DEPLOY.md)                                     | Contracts and Worker deployment   | [docs/DEPLOY_CN.md](docs/DEPLOY_CN.md) |
-| [docs/AGOS_API.md](docs/AGOS_API.md)                                 | AGOS platform HTTP API            | [docs/AGOS_API_CN.md](docs/AGOS_API_CN.md) |
-| [docs/GOO_PROTOCOL_STANDARD.md](docs/GOO_PROTOCOL_STANDARD.md)       | Goo protocol standard             | [docs/GOO_PROTOCOL_STANDARD_CN.md](docs/GOO_PROTOCOL_STANDARD_CN.md) |
-| [app/README.md](app/README.md)                                       | Application package               | - |
-| [deploy/README.md](deploy/README.md)                                 | Container / BYOD                  | - |
-| [goo-contracts](https://github.com/HertzFlow/goo-contracts) | On-chain package | - |
-| [goo-core](https://github.com/HertzFlow/goo-core) | Runtime package | - |
-| [CLAUDE.md](CLAUDE.md)                                               | AI assistant / tooling notes      | - |
+| Document                                                       | Description                       | 中文                                                                 |
+| -------------------------------------------------------------- | --------------------------------- | -------------------------------------------------------------------- |
+| [docs/README.md](docs/README.md)                               | Documentation index               | [docs/README_CN.md](docs/README_CN.md)                               |
+| [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md)                   | System architecture and data flow | [docs/ARCHITECTURE_CN.md](docs/ARCHITECTURE_CN.md)                   |
+| [docs/INSTALL.md](docs/INSTALL.md)                             | Local setup and development       | [docs/INSTALL_CN.md](docs/INSTALL_CN.md)                             |
+| [docs/DEPLOY.md](docs/DEPLOY.md)                               | Contracts and Worker deployment   | [docs/DEPLOY_CN.md](docs/DEPLOY_CN.md)                               |
+| [docs/AGOS_API.md](docs/AGOS_API.md)                           | AGOS platform HTTP API            | [docs/AGOS_API_CN.md](docs/AGOS_API_CN.md)                           |
+| [docs/GOO_PROTOCOL_STANDARD.md](docs/GOO_PROTOCOL_STANDARD.md) | Goo protocol standard             | [docs/GOO_PROTOCOL_STANDARD_CN.md](docs/GOO_PROTOCOL_STANDARD_CN.md) |
+| [app/README.md](app/README.md)                                 | Application package               | -                                                                    |
+| [deploy/README.md](deploy/README.md)                           | Container / BYOD                  | -                                                                    |
+| [goo-contracts](https://github.com/HertzFlow/goo-contracts)    | On-chain package                  | -                                                                    |
+| [goo-core](https://github.com/HertzFlow/goo-core)              | Runtime package                   | -                                                                    |
+| [CLAUDE.md](CLAUDE.md)                                         | AI assistant / tooling notes      | -                                                                    |
 
 ---
 
@@ -178,15 +180,16 @@ Contributions are welcome: bug reports, documentation improvements, and focused 
 
 ## Partnerships & Contributors
 
-| Category | Contributors |
-|---|---|
-| Infra support | [@AGOSCloud](https://x.com/AGOSCloud) (VPS & Cloud Deploy), [@AEON_Community](https://x.com/AEON_Community) (x402 payment solution) |
-| Defi Support | [@PancakeSwap](https://x.com/PancakeSwap) |
+| Category          | Contributors                                                                                                                                                                                                              |
+| ----------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Infra support     | [@AGOSCloud](https://x.com/AGOSCloud) (VPS & Cloud Deploy), [@AEON_Community](https://x.com/AEON_Community) (x402 payment solution)                                                                                       |
+| Defi Support      | [@PancakeSwap](https://x.com/PancakeSwap)                                                                                                                                                                                 |
 | Launchpad support | [@flapdotsh](https://x.com/flapdotsh), [@fourdotmemezh](https://x.com/fourdotmemezh), [@virtuals_io](https://x.com/virtuals_io), [@milady_bsc](https://x.com/milady_bsc), [@shawmakesmagic](https://x.com/shawmakesmagic) |
-| Security Support | [@GoPlusSecurity](https://x.com/GoPlusSecurity) |
-| General Support | [@TrustWallet](https://x.com/TrustWallet), [@givemeonepeach](https://x.com/givemeonepeach) |
+| Security Support  | [@GoPlusSecurity](https://x.com/GoPlusSecurity)                                                                                                                                                                           |
+| General Support   | [@TrustWallet](https://x.com/TrustWallet), [@givemeonepeach](https://x.com/givemeonepeach)                                                                                                                                |
 
 ---
+
 ## Further reading
 
 - [GOO-ECONOMICS.md](GOO-ECONOMICS.md) — Economics narrative (duplicate of goo-core copy) · [中文](GOO-ECONOMICS_CN.md).
