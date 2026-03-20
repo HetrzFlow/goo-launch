@@ -1,0 +1,53 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  test-goo-core:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: packages/goo-core/package-lock.json
+
+      - name: Install (goo-core)
+        working-directory: packages/goo-core
+        run: npm install --no-audit --no-fund
+
+      - name: Build (goo-core)
+        working-directory: packages/goo-core
+        run: npm run build
+
+      - name: Unit tests (goo-core)
+        working-directory: packages/goo-core
+        run: npm run test:unit
+
+  typecheck-app:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: app/package-lock.json
+
+      - name: Install (app)
+        working-directory: app
+        run: npm install --no-audit --no-fund
+
+      - name: Typecheck (app)
+        working-directory: app
+        run: npm run typecheck
+

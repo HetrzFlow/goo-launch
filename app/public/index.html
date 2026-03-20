@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/png" href="/favicon.png" />
+  <meta name="description" content="Launch and manage Goo-powered economic agents on BSC." />
+  <meta property="og:title" content="All Goo - Goo Economy" />
+  <meta property="og:description" content="Launch and manage Goo-powered economic agents on BSC." />
+  <meta property="og:image" content="https://launchgoo.hertzflow.xyz/og-image.png" />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="All Goo - Goo Economy" />
+  <meta name="twitter:description" content="Launch and manage Goo-powered economic agents on BSC." />
+  <meta name="twitter:image" content="https://launchgoo.hertzflow.xyz/og-image.png" />
+  <title>All Goo - Goo Economy</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet" /></noscript>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: #f8f8f7;
+      color: #000000;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      font-size: 15px;
+      line-height: 1.5;
+    }
+    main {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 32px 24px;
+      animation: fadeIn 0.4s ease-out;
+    }
+
+    /* Header */
+    .page-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 24px;
+    }
+    .page-header h1 {
+      font-size: 24px;
+      font-weight: 600;
+      color: #000000;
+      letter-spacing: -0.02em;
+    }
+    .btn-launch {
+      padding: 10px 20px;
+      background: #00C7D2;
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      font-family: inherit;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background .2s;
+    }
+    .btn-launch:hover { background: #00b3bd; }
+
+    /* Filter bar */
+    .filter-bar {
+      display: flex;
+      gap: 4px;
+      margin-bottom: 20px;
+      border-bottom: 1px solid #ebebeb;
+      padding-bottom: 0;
+    }
+    .filter-tab {
+      padding: 8px 16px;
+      font-size: 13px;
+      font-weight: 500;
+      color: #4D4D4D;
+      cursor: pointer;
+      border: none;
+      background: none;
+      font-family: inherit;
+      border-bottom: 2px solid transparent;
+      margin-bottom: -1px;
+      transition: color .2s, border-color .2s;
+    }
+    .filter-tab:hover { color: #000; }
+    .filter-tab.active {
+      color: #000;
+      border-bottom-color: #00C7D2;
+    }
+    .filter-count {
+      font-size: 11px;
+      color: #808080;
+      margin-left: 4px;
+    }
+
+    /* Agent list */
+    #agent-list-container {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    /* Agent row */
+    .agent-row {
+      background: #fff;
+      border: 1px solid #ebebeb;
+      border-radius: 16px;
+      padding: 16px 20px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      cursor: pointer;
+      opacity: 0;
+      animation: slideUp 0.4s ease-out forwards;
+      transition: border-color .2s, box-shadow .2s, transform .2s;
+    }
+    .agent-row:nth-child(1) { animation-delay: 0s; }
+    .agent-row:nth-child(2) { animation-delay: 0.05s; }
+    .agent-row:nth-child(3) { animation-delay: 0.1s; }
+    .agent-row:nth-child(4) { animation-delay: 0.15s; }
+    .agent-row:nth-child(5) { animation-delay: 0.2s; }
+    .agent-row:nth-child(6) { animation-delay: 0.25s; }
+    .agent-row:nth-child(7) { animation-delay: 0.3s; }
+    .agent-row:nth-child(8) { animation-delay: 0.35s; }
+    .agent-row:nth-child(9) { animation-delay: 0.4s; }
+    .agent-row:nth-child(10) { animation-delay: 0.45s; }
+    .agent-row:nth-child(n+11) { animation-delay: 0.5s; }
+    .agent-row:hover {
+      border-color: #d0d0d0;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.07);
+      transform: translateY(-2px);
+    }
+
+    /* Status dot */
+    .status-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .status-dot.active { background: #00C7D2; animation: dotPulse 2s ease-in-out infinite; }
+    .status-dot.deployed { background: #0081f2; }
+    .status-dot.stopped { background: #9CA3AF; }
+    .status-dot.dead { background: #D1D5DB; }
+
+    /* Main column */
+    .agent-main-col {
+      flex: 1;
+      min-width: 0;
+    }
+    .agent-title-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .agent-symbol {
+      font-weight: 600;
+      font-size: 15px;
+      color: #000000;
+    }
+    .agent-name {
+      font-size: 14px;
+      color: #4D4D4D;
+    }
+    .status-badge {
+      font-size: 11px;
+      font-weight: 600;
+      padding: 2px 8px;
+      border-radius: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    .status-badge.active { background: #e6fafb; color: #00C7D2; animation: badgeGlow 2s ease-in-out infinite; }
+    .status-badge.deployed { background: #dbeafe; color: #0081f2; }
+    .status-badge.stopped { background: #F3F4F6; color: #9CA3AF; }
+    .status-badge.dead { background: #F9FAFB; color: #D1D5DB; }
+
+    .agent-meta {
+      font-size: 13px;
+      color: #808080;
+      margin-top: 4px;
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+    .meta-sep { color: #d0d0d0; }
+
+    /* Metrics column */
+    .agent-metrics-col {
+      text-align: right;
+      flex-shrink: 0;
+    }
+    .metric-value {
+      font-size: 13px;
+      font-weight: 500;
+      color: #000000;
+    }
+    .metric-link {
+      font-size: 12px;
+      color: #00C7D2;
+      text-decoration: none;
+    }
+    .metric-link:hover { text-decoration: underline; }
+
+    /* States: loading, empty, error */
+    .list-state {
+      text-align: center;
+      padding: 48px 24px;
+      color: #808080;
+    }
+    .list-state-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: #f0f0ef;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 16px;
+      font-size: 18px;
+      font-weight: 600;
+      color: #4D4D4D;
+    }
+    .btn-retry {
+      margin-top: 12px;
+      padding: 8px 20px;
+      background: #00C7D2;
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      font-family: inherit;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+    }
+
+    /* Skeleton loading */
+    .skeleton-row {
+      pointer-events: none;
+    }
+    .skeleton-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #ebebeb;
+      flex-shrink: 0;
+    }
+    .skeleton-body { flex: 1; }
+    .skeleton-line {
+      height: 14px;
+      background: #ebebeb;
+      border-radius: 6px;
+      margin-bottom: 6px;
+    }
+    .skeleton-metrics { flex-shrink: 0; }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    @keyframes slideUp {
+      from { transform: translateY(12px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+    @keyframes dotPulse {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(0, 199, 210, 0.4); }
+      50% { box-shadow: 0 0 0 4px rgba(0, 199, 210, 0); }
+    }
+    @keyframes badgeGlow {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(0, 199, 210, 0.15); }
+      50% { box-shadow: 0 0 8px 2px rgba(0, 199, 210, 0.15); }
+    }
+
+    @keyframes shimmer {
+      0% { opacity: 0.6; }
+      50% { opacity: 1; }
+      100% { opacity: 0.6; }
+    }
+    .skeleton-row .skeleton-dot,
+    .skeleton-row .skeleton-line {
+      animation: shimmer 1.5s ease-in-out infinite;
+    }
+
+    /* Load more */
+    #btn-load-more {
+      display: none;
+      margin: 20px auto 0;
+      padding: 10px 28px;
+      background: #fff;
+      color: #000000;
+      border: 1px solid #ebebeb;
+      border-radius: 10px;
+      font-family: inherit;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: border-color .2s;
+    }
+    #btn-load-more:hover { border-color: #d0d0d0; }
+
+    /* Responsive */
+    @media (max-width: 640px) {
+      .agent-row { flex-wrap: wrap; }
+      .agent-metrics-col { width: 100%; text-align: left; margin-top: 8px; }
+      .page-header { flex-direction: column; gap: 12px; align-items: flex-start; }
+    }
+  </style>
+  <script type="module" crossorigin src="/assets/main-CFAYBiQ4.js"></script>
+  <link rel="modulepreload" crossorigin href="/assets/auth-D598SpUJ.js">
+  <link rel="stylesheet" crossorigin href="/assets/auth-BIOB_lb2.css">
+</head>
+<body>
+  <main>
+    <div class="page-header">
+      <h1>All Goo</h1>
+      <a href="/launch.html" class="btn-launch">Launch New Goo</a>
+    </div>
+
+    <div class="filter-bar">
+      <button class="filter-tab active" data-filter="all">All <span class="filter-count" id="fc-all"></span></button>
+      <button class="filter-tab" data-filter="mine">Mine <span class="filter-count" id="fc-mine"></span></button>
+      <button class="filter-tab" data-filter="active">Active <span class="filter-count" id="fc-active"></span></button>
+      <button class="filter-tab" data-filter="deployed">Deployed <span class="filter-count" id="fc-deployed"></span></button>
+      <button class="filter-tab" data-filter="stopped">Stopped <span class="filter-count" id="fc-stopped"></span></button>
+      <button class="filter-tab" data-filter="dead">Dead <span class="filter-count" id="fc-dead"></span></button>
+    </div>
+
+    <div id="agent-list-container"></div>
+    <button id="btn-load-more">Load More</button>
+  </main>
+
+</body>
+</html>

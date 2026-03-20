@@ -1,0 +1,34 @@
+{
+  "version": "7",
+  "dialect": "sqlite",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "6",
+      "when": 1773117611577,
+      "tag": "0000_chilly_post",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "6",
+      "when": 1773117611578,
+      "tag": "0001_add_erc8004_agent_id",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "6",
+      "when": 1773117611579,
+      "tag": "0002_add_agos_refresh_token",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "6",
+      "when": 1773117611580,
+      "tag": "0003_launch_runtime_state",
+      "breakpoints": true
+    }
+  ]
+}

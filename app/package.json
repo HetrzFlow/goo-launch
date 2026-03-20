@@ -1,0 +1,33 @@
+{
+  "name": "goo-server",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "concurrently -n wrangler,vite -c blue,green \"wrangler dev\" \"bun run --cwd frontend dev\"",
+    "dev:worker": "wrangler dev",
+    "dev:frontend": "bun run --cwd frontend dev",
+    "build:frontend": "bun run --cwd frontend build",
+    "sync:artifacts": "bash scripts/sync-artifacts.sh",
+    "build": "bun run sync:artifacts && bun run build:frontend",
+    "deploy": "bun run build && wrangler deploy",
+    "typecheck": "tsc --noEmit",
+    "db:generate": "drizzle-kit generate",
+    "db:migrate:local": "wrangler d1 migrations apply goo-server --local",
+    "db:migrate:remote": "wrangler d1 migrations apply goo-server --remote",
+    "postinstall": "bash scripts/patch-ssh2.sh"
+  },
+  "dependencies": {
+    "drizzle-orm": "^0.38.0",
+    "ethers": "^6.13.0",
+    "hono": "^4.7.0",
+    "ssh2": "^1.17.0",
+    "zod": "^3.24.0"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20250307.0",
+    "concurrently": "^9.0.0",
+    "drizzle-kit": "^0.30.0",
+    "typescript": "^5.7.0",
+    "wrangler": "^4.0.0"
+  }
+}

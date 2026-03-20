@@ -1,0 +1,3 @@
+JWT_SECRET=your-jwt-secret
+LLM_API_KEY=your-llm-api-key
+AGOS_EFFECTIVE_MIN_INITIAL_FUND=10

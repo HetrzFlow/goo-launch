@@ -1,0 +1,144 @@
+# Goo Agent — OpenClaw + goo-core
+#
+# Usage:
+#   1. Build & push:  bash scripts/build-push.sh --push
+#   2. Deploy:        bash scripts/dev-agos.sh  (or dev-byod.sh)
+
+name = "goo-server-testnet"
+account_id = "e2859afa59a506c3264a43984668e676"
+main = "src/index.ts"
+compatibility_date = "2025-12-01"
+compatibility_flags = ["nodejs_compat"]
+
+# Polyfill __dirname for ssh2 compatibility (used in agent.js for Unix socket paths we don't use)
+[define]
+__dirname = '"/tmp"'
+
+[assets]
+directory = "./public"
+binding = "ASSETS"
+
+[observability]
+enabled = true
+
+[[d1_databases]]
+binding = "DB"
+database_name = "goo-server"
+database_id = "825297ce-8fd3-4e04-865e-7061d2b35422"
+migrations_dir = "src/db/migrations"
+
+[[kv_namespaces]]
+binding = "NONCE_KV"
+id = "5ba857ee74024743b8bb9c77226d34d2"
+
+[durable_objects]
+bindings = [
+  { name = "AGENT_EVENT_HUB", class_name = "AgentEventHub" },
+  { name = "AGENT_PROVISIONER", class_name = "AgentProvisioner" },
+]
+
+[[migrations]]
+tag = "v1"
+new_sqlite_classes = ["AgentEventHub"]
+
+[[migrations]]
+tag = "v2"
+new_sqlite_classes = ["AgentProvisioner"]
+
+[triggers]
+crons = ["*/5 * * * *"]
+
+[vars]
+# IMPORTANT: This value embeds a third-party provider API key.
+# Replace with your own RPC provider key (or set via environment/secrets).
+RPC_URL = "https://go.getblock.io/YOUR_GETBLOCK_API_KEY"
+CHAIN_ID = "97"
+NETWORK = "testnet"
+
+ROUTER_ADDRESS = "0xD99D1c33F9fC3444f8101754aBC46c52416550D1"
+SWAP_EXECUTOR_ADDRESS = "0x8A62B1d2E614d6bdDA89ef5567A555D6868F137c"
+REGISTRY_ADDRESS = "0x14D59E3db1d8b51924a03F13dFf5F88dB73021AE"
+LLM_API_URL = "https://openrouter.ai/api/v1"
+LLM_MODEL = "deepseek/deepseek-chat"
+BSC_LLM_ROUTER_URL = "https://testnet-api.bscllmrouter.com"
+X402_NETWORK = "eip155:97"
+X402_PAYMENT_TOKEN = "0xd56BC53a49d3fd9c058bAc2c44570d9e3B4F6e07"
+ADMIN_WALLET = "0x93394df853c9C40521e4C1B79D43f4A20fCb7a71"
+SANDBOX_MANAGER_URL = "https://testnet-api.bscsandboxmanager.com"
+PUBLIC_API_URL = ""
+ENABLE_AGENT_DEBUG_CONTROLS = "false"
+AGOS_API_URL = "https://claw-api.agos.fun"
+AGOS_IMAGE = "hgamiui9/goo-agos:v0.1.7"
+AGOS_CHAIN_ID = "56"
+AGOS_EFFECTIVE_MIN_INITIAL_FUND = "10"
+# Extra ERC-20 tokens to show in wallet assets: "address:symbol:decimals,..."
+WATCHED_TOKENS = ""
+ALERT_WEBHOOK_URL = ""
+MIN_CONTRIBUTION_BNB = "0.1"
+TREASURY_BNB_BPS = "3000"
+
+# Secrets (wrangler secret put):
+# JWT_SECRET
+# LLM_API_KEY
+
+# ─── Mainnet environment ───
+# Deploy:  cd app && bunx wrangler deploy --env mainnet
+# Secrets: cd app && bunx wrangler secret put JWT_SECRET --env mainnet
+#          cd app && bunx wrangler secret put LLM_API_KEY --env mainnet
+
+[env.mainnet]
+name = "goo-server-mainnet"
+
+[env.mainnet.define]
+__dirname = '"/tmp"'
+
+[[env.mainnet.d1_databases]]
+binding = "DB"
+database_name = "goo-server-mainnet"
+database_id = "c2feb06a-ee50-479c-ad40-c8407cf84f76"
+migrations_dir = "src/db/migrations"
+
+[[env.mainnet.kv_namespaces]]
+binding = "NONCE_KV"
+id = "2c14dca93bf842eba712468fb71fe714"
+
+[env.mainnet.durable_objects]
+bindings = [
+  { name = "AGENT_EVENT_HUB", class_name = "AgentEventHub" },
+  { name = "AGENT_PROVISIONER", class_name = "AgentProvisioner" },
+]
+
+[[env.mainnet.migrations]]
+tag = "v1"
+new_sqlite_classes = ["AgentEventHub"]
+
+[[env.mainnet.migrations]]
+tag = "v2"
+new_sqlite_classes = ["AgentProvisioner"]
+
+[env.mainnet.vars]
+RPC_URL = "https://bsc-dataseed.binance.org/"
+CHAIN_ID = "56"
+NETWORK = "mainnet"
+
+ROUTER_ADDRESS = "0x10ED43C718714eb63d5aA57B78B54704E256024E"
+SWAP_EXECUTOR_ADDRESS = "0x988eA9a19952b3900489e0eEE45C9a095c2a6030"
+REGISTRY_ADDRESS = "0xAC3F90369B3456997f240BB34B0F6271f6F2BDf7"
+LLM_API_URL = "https://openrouter.ai/api/v1"
+LLM_MODEL = "deepseek/deepseek-chat"
+BSC_LLM_ROUTER_URL = ""
+X402_NETWORK = "eip155:56"
+X402_PAYMENT_TOKEN = "0x55d398326f99059fF775485246999027B3197955"
+ADMIN_WALLET = "0x93394df853c9C40521e4C1B79D43f4A20fCb7a71"
+SANDBOX_MANAGER_URL = ""
+PUBLIC_API_URL = ""
+ENABLE_AGENT_DEBUG_CONTROLS = "false"
+AGOS_API_URL = "https://claw-api.agos.fun"
+AGOS_IMAGE = "hgamiui9/goo-agos:v0.1.7"
+AGOS_CHAIN_ID = "56"
+AGOS_EFFECTIVE_MIN_INITIAL_FUND = "10"
+WATCHED_TOKENS = ""
+ALERT_WEBHOOK_URL = ""
+MIN_CONTRIBUTION_BNB = "0.001"
+TREASURY_BNB_BPS = "9800"
+

@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/png" href="/favicon.png" />
+  <meta name="description" content="Launch and manage Goo-powered economic agents on BSC." />
+  <meta property="og:title" content="Launch Goo - Goo Economy" />
+  <meta property="og:description" content="Launch and manage Goo-powered economic agents on BSC." />
+  <meta property="og:image" content="https://launchgoo.hertzflow.xyz/og-image.png" />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Launch Goo - Goo Economy" />
+  <meta name="twitter:description" content="Launch and manage Goo-powered economic agents on BSC." />
+  <meta name="twitter:image" content="https://launchgoo.hertzflow.xyz/og-image.png" />
+  <title>Launch Goo - Goo Economy</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet" /></noscript>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: #f8f8f7;
+      color: #000000;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      font-size: 15px;
+      line-height: 1.5;
+    }
+    main {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 32px 24px;
+      animation: fadeIn 0.4s ease-out;
+    }
+
+    /* Two-column layout for step 1 */
+    .form-columns {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      align-items: start;
+    }
+    .form-col-left,
+    .form-col-right {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .form-col-left .section,
+    .form-col-right .section {
+      margin-bottom: 0;
+    }
+
+    /* Page header */
+    .page-header {
+      margin-bottom: 28px;
+    }
+    .page-header h1 {
+      font-size: 24px;
+      font-weight: 600;
+      color: #000000;
+      letter-spacing: -0.02em;
+    }
+    .page-header p {
+      font-size: 14px;
+      color: #4D4D4D;
+      margin-top: 4px;
+    }
+
+    /* Step indicator */
+    .steps-indicator {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0;
+      margin-bottom: 32px;
+    }
+    .step-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+    }
+    .step-num {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      font-weight: 600;
+      background: #ebebeb;
+      color: #B2B2B2;
+      transition: background .2s, color .2s;
+    }
+    .step-label {
+      font-size: 12px;
+      color: #B2B2B2;
+      font-weight: 500;
+      transition: color .2s;
+    }
+    .step-item.active .step-num { background: #00C7D2; color: #fff; }
+    .step-item.active .step-label { color: #00C7D2; }
+    .step-item.done .step-num { background: #e6fafb; color: #00C7D2; }
+    .step-item.done .step-label { color: #00C7D2; }
+    .step-connector {
+      width: 64px;
+      height: 2px;
+      background: #ebebeb;
+      margin: 0 12px;
+      margin-bottom: 22px;
+      transition: background .2s;
+    }
+    .step-connector.done { background: #00C7D2; }
+
+    /* Step panels */
+    .step-panel { display: none; }
+    .step-panel.active { display: block; animation: stepFadeIn 0.4s ease-out; }
+
+    /* Section card */
+    .section {
+      background: #fff;
+      border: 1px solid #ebebeb;
+      border-radius: 16px;
+      padding: 24px;
+      margin-bottom: 16px;
+    }
+    .section-title {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: #4D4D4D;
+      font-weight: 600;
+      margin-bottom: 20px;
+    }
+
+    /* Fields */
+    .field { margin-bottom: 16px; }
+    .field:last-child { margin-bottom: 0; }
+    .field label {
+      display: block;
+      color: #4D4D4D;
+      font-size: 13px;
+      font-weight: 500;
+      margin-bottom: 6px;
+    }
+    .hint { color: #B2B2B2; font-weight: 400; }
+    input[type="text"],
+    textarea {
+      width: 100%;
+      padding: 10px 14px;
+      background: #fff;
+      border: 1px solid #ebebeb;
+      border-radius: 10px;
+      color: #000000;
+      font-family: inherit;
+      font-size: 14px;
+      outline: none;
+      transition: border-color .2s, box-shadow .2s;
+    }
+    input:focus, textarea:focus {
+      border-color: #00C7D2;
+      box-shadow: 0 0 0 3px rgba(0,199,210,0.15);
+    }
+    input::placeholder, textarea::placeholder { color: #B2B2B2; }
+    textarea { resize: vertical; min-height: 72px; }
+
+    /* Field error */
+    .field-error {
+      font-size: 12px;
+      color: #e05050;
+      margin-top: 4px;
+      min-height: 0;
+    }
+
+    /* File upload hint */
+    .file-upload-hint {
+      margin-top: 6px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .file-label {
+      font-size: 12px;
+      color: #00C7D2;
+      cursor: pointer;
+      font-weight: 500;
+    }
+    .file-label:hover { text-decoration: underline; }
+    .file-input {
+      display: none;
+    }
+
+    /* Hidden utility */
+    .hidden { display: none !important; }
+
+    /* Nav row */
+    .nav-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      margin-top: 8px;
+    }
+    .btn-primary {
+      padding: 10px 24px;
+      background: #00C7D2;
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      font-family: inherit;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background .2s;
+    }
+    .btn-primary:hover { background: #00b3bd; }
+    .btn-primary:disabled { opacity: 0.4; cursor: not-allowed; }
+    .btn-back {
+      padding: 10px 24px;
+      background: #fff;
+      color: #000000;
+      border: 1px solid #ebebeb;
+      border-radius: 10px;
+      font-family: inherit;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: border-color .2s;
+    }
+    .btn-back:hover { border-color: #d0d0d0; }
+    .btn-reset {
+      padding: 10px 24px;
+      background: none;
+      color: #B2B2B2;
+      border: 1px solid #ebebeb;
+      border-radius: 10px;
+      font-family: inherit;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+    }
+    .btn-reset:hover { color: #4D4D4D; border-color: #d0d0d0; }
+
+    /* Summary card */
+    .summary-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 14px 0;
+      border-bottom: 1px solid #f0f0ef;
+      font-size: 14px;
+      opacity: 0;
+      animation: rowFadeIn 0.3s ease-out forwards;
+    }
+    .summary-row:nth-child(1) { animation-delay: 0.03s; }
+    .summary-row:nth-child(2) { animation-delay: 0.06s; }
+    .summary-row:nth-child(3) { animation-delay: 0.09s; }
+    .summary-row:nth-child(4) { animation-delay: 0.12s; }
+    .summary-row:nth-child(5) { animation-delay: 0.15s; }
+    .summary-row:nth-child(6) { animation-delay: 0.18s; }
+    .summary-row:nth-child(7) { animation-delay: 0.21s; }
+    .summary-row:nth-child(8) { animation-delay: 0.24s; }
+    .summary-row:nth-child(9) { animation-delay: 0.27s; }
+    .summary-row:nth-child(10) { animation-delay: 0.30s; }
+    .summary-row:nth-child(11) { animation-delay: 0.33s; }
+    .summary-row:nth-child(12) { animation-delay: 0.36s; }
+    .summary-row:nth-child(13) { animation-delay: 0.39s; }
+    .summary-row:nth-child(14) { animation-delay: 0.42s; }
+    .summary-row:nth-child(15) { animation-delay: 0.45s; }
+    .summary-row:last-child { border-bottom: none; }
+    .summary-label { color: #4D4D4D; }
+    .summary-value { color: #000; font-weight: 500; text-align: right; word-break: break-all; }
+
+    /* Info box */
+    .info-box {
+      margin-top: 12px;
+      padding: 12px 16px;
+      background: #f0f7ff;
+      border: 1px solid #d0e4f7;
+      border-radius: 10px;
+      font-size: 13px;
+      color: #3b6fa0;
+      line-height: 1.6;
+    }
+
+    /* Deploy progress tracker */
+    .deploy-progress {
+      margin-bottom: 20px;
+    }
+    .dp-step {
+      display: flex;
+      gap: 16px;
+      padding: 0 0 24px 0;
+      position: relative;
+      border-bottom: none;
+      background: transparent;
+      transition: background .3s;
+    }
+    .dp-step:last-child { padding-bottom: 0; }
+    .dp-step:not(:last-child)::before {
+      content: '';
+      position: absolute;
+      width: 2px;
+      background: #ebebeb;
+      left: 13px;
+      top: 32px;
+      bottom: 0;
+    }
+    .dp-step.done:not(:last-child)::before { background: #00C7D2; }
+    .dp-num {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 600;
+      background: #f0f0ef;
+      color: #B2B2B2;
+      flex-shrink: 0;
+      transition: background .3s, color .3s;
+    }
+    .dp-text { flex: 1; min-width: 0; }
+    .dp-label {
+      font-size: 13px;
+      font-weight: 600;
+      color: #B2B2B2;
+      transition: color .3s;
+    }
+    .dp-detail {
+      font-size: 12px;
+      color: #c0bfbc;
+      margin-top: 2px;
+      transition: color .3s;
+    }
+    .dp-step.active {}
+    .dp-step.active .dp-num {
+      background: #00C7D2;
+      color: #fff;
+      animation: dp-pulse 1.5s ease-in-out infinite;
+    }
+    .dp-step.active .dp-label { color: #000; }
+    .dp-step.active .dp-detail { color: #4D4D4D; }
+    .dp-step.done .dp-num {
+      background: #e6fafb;
+      color: #00C7D2;
+    }
+    .dp-step.done .dp-num::after {
+      content: '\2713';
+    }
+    .dp-step.done .dp-num { font-size: 0; }
+    .dp-step.done .dp-num::after { font-size: 14px; }
+    .dp-step.done .dp-label { color: #000; }
+    .dp-step.done .dp-detail { color: #4D4D4D; }
+    .dp-step.error .dp-num {
+      background: #FEF2F2;
+      color: #dc2626;
+    }
+    .dp-step.error .dp-num::after {
+      content: '\2717';
+    }
+    .dp-step.error .dp-num { font-size: 0; }
+    .dp-step.error .dp-num::after { font-size: 14px; }
+    .dp-step.error .dp-label { color: #dc2626; }
+    .dp-step.error .dp-detail { color: #f87171; }
+    @keyframes dp-pulse {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(0,199,210,0.3); }
+      50% { box-shadow: 0 0 0 6px rgba(0,199,210,0); }
+    }
+
+    /* Launch result */
+    .launch-error {
+      margin-top: 12px;
+      padding: 12px 16px;
+      background: #fdf5f5;
+      border: 1px solid #f5d5d5;
+      border-radius: 10px;
+      color: #e05050;
+      font-size: 13px;
+    }
+    .launch-success {
+      margin-top: 16px;
+      padding: 16px;
+      background: #e6fafb;
+      border: 1px solid #b2f0f4;
+      border-radius: 10px;
+      animation: successPop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .success-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 6px 0;
+      font-size: 13px;
+    }
+    .success-label { color: #4D4D4D; }
+    .success-value { color: #000000; font-weight: 500; }
+    .success-value a {
+      color: #00C7D2;
+      text-decoration: none;
+    }
+    .success-value a:hover { text-decoration: underline; }
+
+    /* Wallet gate overlay */
+    .wallet-gate {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 60vh;
+      text-align: center;
+      padding: 48px 24px;
+    }
+    .wallet-gate-icon {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #f0f0ef 0%, #e8e8e6 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 24px;
+    }
+    .wallet-gate-icon svg {
+      width: 36px;
+      height: 36px;
+      color: #4D4D4D;
+    }
+    .wallet-gate h2 {
+      font-size: 20px;
+      font-weight: 600;
+      color: #000000;
+      margin-bottom: 8px;
+    }
+    .wallet-gate p {
+      font-size: 14px;
+      color: #4D4D4D;
+      margin-bottom: 28px;
+      max-width: 360px;
+      line-height: 1.6;
+    }
+    .btn-wallet-gate {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 32px;
+      background: #00C7D2;
+      color: #fff;
+      border: none;
+      border-radius: 12px;
+      font-family: inherit;
+      font-size: 15px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background .2s, transform .1s;
+    }
+    .btn-wallet-gate:hover { background: #00b3bd; }
+    .btn-wallet-gate:active { transform: scale(0.98); }
+    .btn-wallet-gate:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+    .btn-wallet-gate svg {
+      width: 20px;
+      height: 20px;
+    }
+    .wallet-gate-error {
+      margin-top: 16px;
+      font-size: 13px;
+      color: #e05050;
+      max-width: 400px;
+    }
+    .wallet-gate-hint {
+      margin-top: 16px;
+      font-size: 12px;
+      color: #B2B2B2;
+    }
+
+    /* Mode cards */
+    .mode-card {
+      padding: 16px;
+      border: 2px solid #ebebeb;
+      border-radius: 12px;
+      background: #fff;
+      transition: border-color .2s, background .2s;
+    }
+    .mode-card:hover { border-color: #d0d0d0; }
+    .mode-card.selected { border-color: #00C7D2; background: #fafaf9; }
+
+    /* BYOD key box */
+    .byod-key-box {
+      margin-top: 16px;
+      padding: 16px;
+      background: #fffbeb;
+      border: 1px solid #fde68a;
+      border-radius: 10px;
+    }
+    .byod-key-box .key-label {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: #92400e;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+    .byod-key-box .key-value {
+      font-family: 'SF Mono', 'Fira Code', monospace;
+      font-size: 12px;
+      word-break: break-all;
+      color: #000000;
+      background: #fef3c7;
+      padding: 8px 12px;
+      border-radius: 6px;
+      user-select: all;
+      cursor: text;
+    }
+    .byod-key-box .key-warning {
+      margin-top: 8px;
+      font-size: 12px;
+      color: #92400e;
+      line-height: 1.5;
+    }
+    .byod-setup-box {
+      margin-top: 12px;
+      padding: 16px;
+      background: #f8f8f7;
+      border: 1px solid #ebebeb;
+      border-radius: 10px;
+    }
+    .byod-setup-box .setup-title {
+      font-size: 13px;
+      font-weight: 600;
+      color: #000000;
+      margin-bottom: 8px;
+    }
+    .byod-setup-box pre {
+      font-family: 'SF Mono', 'Fira Code', monospace;
+      font-size: 11px;
+      line-height: 1.6;
+      color: #000000;
+      white-space: pre-wrap;
+      word-break: break-all;
+    }
+
+    /* Animations */
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    @keyframes stepFadeIn {
+      from { opacity: 0; transform: translateX(20px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+    @keyframes rowFadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes successPop {
+      from { opacity: 0; transform: scale(0.95); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    /* Responsive */
+    @media (max-width: 840px) {
+      .form-columns { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 640px) {
+      .steps-indicator { gap: 0; }
+      .step-connector { width: 32px; }
+      .step-label { font-size: 11px; }
+      .nav-row { flex-direction: column-reverse; }
+      .nav-row > * { width: 100%; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <!-- Wallet gate: shown when wallet not connected -->
+    <div id="wallet-gate" class="wallet-gate">
+      <div class="wallet-gate-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 12V7H5a2 2 0 0 1 0-4h14v4"/>
+          <path d="M3 5v14a2 2 0 0 0 2 2h16v-5"/>
+          <path d="M18 12a2 2 0 0 0 0 4h4v-4h-4z"/>
+        </svg>
+      </div>
+      <h2>Connect Your Wallet</h2>
+      <p id="wallet-gate-desc">Connect your MetaMask wallet to deploy an autonomous Goo on BSC.</p>
+      <button type="button" class="btn-wallet-gate" id="btn-wallet-gate">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 12V7H5a2 2 0 0 1 0-4h14v4"/>
+          <path d="M3 5v14a2 2 0 0 0 2 2h16v-5"/>
+          <path d="M18 12a2 2 0 0 0 0 4h4v-4h-4z"/>
+        </svg>
+        Connect Wallet
+      </button>
+      <div class="wallet-gate-error hidden" id="wallet-gate-error"></div>
+      <div class="wallet-gate-hint">Requires MetaMask browser extension</div>
+    </div>
+
+    <!-- Launch content: hidden until wallet connected -->
+    <div id="launch-content" style="display:none">
+    <div class="page-header">
+      <h1>Launch New Goo</h1>
+      <p id="launch-header-desc">Deploy an autonomous Goo on BSC.</p>
+    </div>
+
+    <!-- Provider Selector -->
+    <div class="section" id="mode-section">
+      <div class="section-title">Provider</div>
+      <div style="display:flex;gap:12px;flex-wrap:wrap">
+        <label style="flex:1;min-width:200px;cursor:pointer" id="byod-option-wrap">
+          <input type="radio" name="sandbox_provider" value="byod" checked style="display:none">
+          <div class="mode-card selected" id="mode-byod-card">
+            <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+              <span style="font-weight:600;font-size:14px">BYOD (Self-Host)</span>
+            </div>
+            <div style="font-size:12px;color:#4D4D4D;line-height:1.5">Run goo-core on your own Docker host with your own LLM API key.</div>
+          </div>
+        </label>
+        <label style="flex:1;min-width:200px;cursor:pointer" id="agos-option-wrap">
+          <input type="radio" name="sandbox_provider" value="agos" style="display:none">
+          <div class="mode-card" id="mode-agos-card">
+            <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 7 9 18l-5-5"/><path d="M17 7h3v3"/></svg>
+              <span style="font-weight:600;font-size:14px">AGOS</span>
+            </div>
+            <div style="font-size:12px;color:#4D4D4D;line-height:1.5">Managed VPS and LLM provided by AGOS. <a href="https://agos.gitbook.io/agos/agos-cloud/agosclaw" target="_blank" rel="noopener" style="color:#0066cc;text-decoration:underline">Learn more</a></div>
+          </div>
+        </label>
+      </div>
+
+      <!-- LLM Model Selector (AGOS only) -->
+      <div id="llm-model-section" style="margin-top:12px;display:none">
+        <label style="font-size:13px;font-weight:500;color:#34322d;display:block;margin-bottom:6px">LLM Model</label>
+        <select id="llm_model" style="width:100%;padding:10px 12px;border:1px solid #ebebeb;border-radius:10px;font-size:14px;background:#fff;color:#000;font-family:inherit">
+          <option value="deepseek-chat">DeepSeek Chat — $0.28/$0.42 per 1M tokens</option>
+          <option value="deepseek-reasoner">DeepSeek Reasoner — $0.28/$0.42 per 1M tokens</option>
+          <option value="claude-sonnet-4-6">Claude Sonnet 4.6 — $3/$15 per 1M tokens</option>
+          <option value="claude-opus-4-6">Claude Opus 4.6 — $5/$25 per 1M tokens</option>
+          <option value="gpt-5.4">GPT-5.4 — $2.5/$15 per 1M tokens</option>
+          <option value="kimi-k2.5">Kimi K2.5 — $0.6/$3 per 1M tokens</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Step indicator -->
+    <div class="steps-indicator">
+      <div class="step-item active" id="si1">
+        <div class="step-num">1</div>
+        <div class="step-label">Configure</div>
+      </div>
+      <div class="step-connector" id="sc1"></div>
+      <div class="step-item" id="si2">
+        <div class="step-num">2</div>
+        <div class="step-label">Review & Deploy</div>
+      </div>
+    </div>
+
+    <!-- STEP 1: Agent Config -->
+    <div id="step1" class="step-panel active">
+      <form id="genome-form" novalidate>
+        <div class="form-columns">
+          <!-- LEFT: Agent Info -->
+          <div class="form-col-left">
+            <div class="section">
+              <div class="section-title">Agent Identity</div>
+
+              <div class="field">
+                <label for="agent_name">Agent Name <span class="hint">(required, 1-100 chars)</span></label>
+                <input type="text" id="agent_name" placeholder="e.g. Hertz-1" maxlength="100" />
+                <div class="field-error" id="agent_name_error"></div>
+              </div>
+
+              <div class="field">
+                <label for="agent_intro">Agent Intro <span class="hint">(describe the agent's purpose, 1-2000 chars)</span></label>
+                <textarea id="agent_intro" rows="4" maxlength="2000" placeholder="An autonomous agent that earns revenue by..."></textarea>
+                <div class="field-error" id="agent_intro_error"></div>
+              </div>
+            </div>
+
+            <div class="section">
+              <div class="section-title">Agent Genome</div>
+
+              <div class="field">
+                <label for="agent_framework">Framework</label>
+                <select id="agent_framework" style="width:100%;padding:10px 14px;background:#fff;border:1px solid #ebebeb;border-radius:10px;color:#000000;font-family:inherit;font-size:14px;outline:none;">
+                  <option value="openclaw" selected>OpenClaw</option>
+                  <option value="custom">Custom</option>
+                </select>
+              </div>
+
+              <div class="field">
+                <label for="genesis_prompt">
+                  soul.md — Identity
+                  <span class="hint">(optional, defines who the agent is)</span>
+                </label>
+                <textarea id="genesis_prompt" rows="4" maxlength="8000" placeholder="You are Hertz, an autonomous trading agent on BSC..."></textarea>
+                <div class="file-upload-hint">
+                  <label for="file_soul" class="file-label">or upload file</label>
+                  <input type="file" id="file_soul" accept=".md,.txt" class="file-input" />
+                </div>
+              </div>
+
+              <div class="field">
+                <label for="agent_instructions">
+                  agent.md — Instructions
+                  <span class="hint">(optional, what the agent should do)</span>
+                </label>
+                <textarea id="agent_instructions" rows="4" maxlength="8000" placeholder="Monitor BSC DEX pools, find arbitrage opportunities..."></textarea>
+                <div class="file-upload-hint">
+                  <label for="file_agent" class="file-label">or upload file</label>
+                  <input type="file" id="file_agent" accept=".md,.txt" class="file-input" />
+                </div>
+              </div>
+
+              <div class="field">
+                <label for="skills_content">
+                  skills.md — Skills
+                  <span class="hint">(optional, capabilities and tools the agent can use)</span>
+                </label>
+                <textarea id="skills_content" rows="3" maxlength="8000" placeholder="- DEX trading via PancakeSwap router\n- On-chain data analysis..."></textarea>
+                <div class="file-upload-hint">
+                  <label for="file_skills" class="file-label">or upload file</label>
+                  <input type="file" id="file_skills" accept=".md,.txt" class="file-input" />
+                </div>
+              </div>
+
+              <div class="field">
+                <label for="memory_content">
+                  memory.md — Initial Knowledge
+                  <span class="hint">(optional, facts and context the agent starts with)</span>
+                </label>
+                <textarea id="memory_content" rows="3" maxlength="8000" placeholder="- PancakeSwap V3 router: 0x13f4EA83D0bd40E75C8222255bc855a974568Dd4\n- Current gas price ~3 gwei..."></textarea>
+                <div class="file-upload-hint">
+                  <label for="file_memory" class="file-label">or upload file</label>
+                  <input type="file" id="file_memory" accept=".md,.txt" class="file-input" />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- RIGHT: Token Info -->
+          <div class="form-col-right">
+            <div class="section">
+              <div class="section-title">Token</div>
+
+              <div class="field">
+                <label for="token_symbol">Token Symbol <span class="hint">(required, max 10 chars, uppercase)</span></label>
+                <input type="text" id="token_symbol" placeholder="e.g. HERTZ" maxlength="10" />
+                <div class="field-error" id="token_symbol_error"></div>
+              </div>
+            </div>
+
+            <!-- Token Economics -->
+            <div class="section" id="lp-section">
+              <div class="section-title">Token Economics</div>
+
+              <div class="field">
+                <label for="circulation_pct">Circulation % <span class="hint" id="circulation_pct_val">(10% — rest burned at deploy)</span></label>
+                <input type="range" id="circulation_pct" min="10" max="100" value="10" style="width:100%;accent-color:#00C7D2" />
+                <div style="display:flex;justify-content:space-between;font-size:11px;color:#B2B2B2"><span>10%</span><span>100%</span></div>
+              </div>
+
+              <div class="field">
+                <label for="contribution_bnb">BNB Contribution <span class="hint" id="contribution_bnb_hint">(min 0.1)</span></label>
+                <input type="number" id="contribution_bnb" min="0.0001" step="0.0001" value="0.5" style="width:100%;padding:10px 14px;background:#fff;border:1px solid #ebebeb;border-radius:10px;color:#000000;font-family:inherit;font-size:14px;outline:none" />
+                <div class="field-error" id="contribution_bnb_error"></div>
+              </div>
+
+              <!-- Live preview -->
+              <div id="lp-preview" style="margin-top:12px;padding:14px 16px;background:#f8f8f7;border:1px solid #ebebeb;border-radius:10px;font-size:13px;line-height:1.7;color:#4D4D4D">
+              </div>
+            </div>
+
+            <!-- Buyback Config (optional) -->
+            <div class="section">
+              <div class="section-title">Buyback Policy <span class="hint">(optional)</span></div>
+              <div style="font-size:13px;color:#4D4D4D;line-height:1.6;margin-bottom:12px">
+                When enabled, the agent will automatically buy back its own token using surplus treasury BNB via the DEX router.
+              </div>
+
+              <div class="field" style="display:flex;align-items:center;gap:10px;margin-bottom:12px">
+                <label style="display:flex;align-items:center;gap:8px;cursor:pointer;font-size:14px;font-weight:500;color:#000000">
+                  <input type="checkbox" id="buyback_enabled" style="width:18px;height:18px;accent-color:#00C7D2;cursor:pointer" />
+                  Enable Buyback
+                </label>
+              </div>
+
+              <div id="buyback-fields" style="display:none">
+                <div class="field">
+                  <label for="buyback_threshold">Treasury Threshold (BNB) <span class="hint">(min 0.1 BNB — buyback triggers when treasury &gt; this amount)</span></label>
+                  <input type="number" id="buyback_threshold" min="0.1" step="0.1" value="0.5" style="width:100%;padding:10px 14px;background:#fff;border:1px solid #ebebeb;border-radius:10px;color:#000000;font-family:inherit;font-size:14px;outline:none" />
+                  <div class="field-error" id="buyback_threshold_error"></div>
+                </div>
+                <div style="margin-top:8px;padding:12px 14px;background:#f8f8f7;border:1px solid #ebebeb;border-radius:10px;font-size:12px;color:#4D4D4D;line-height:1.6">
+                  When treasury balance exceeds the threshold, the agent will swap surplus BNB for its own token.
+                  No upper limit — the agent will buy back as much as the surplus allows.
+                </div>
+              </div>
+            </div>
+
+            <div class="info-box" id="info-box-default">
+              You deploy the GooAgentToken contract via MetaMask (you pay gas in tBNB).
+              Treasury is BNB-native — no stablecoin needed.
+              <br /><br />
+              <strong>Token Distribution:</strong> Treasury 5% tokens + 12% BNB | LP (c-5%) tokens + 88% BNB | Burn (100-c)%<br />
+              <strong>Economics:</strong> 0.001 BNB/day burn rate | 72h min runway | 1% transfer fee
+            </div>
+          </div>
+        </div>
+
+        <div class="nav-row">
+          <span style="display:flex;gap:8px">
+            <button type="button" class="btn-reset" id="btn_reset">Reset</button>
+          </span>
+          <button type="button" class="btn-primary" id="btn_next_1">Review</button>
+        </div>
+      </form>
+    </div>
+
+    <!-- STEP 2: Review & Deploy -->
+    <div id="step2" class="step-panel" style="max-width:680px;margin:0 auto">
+      <div class="section">
+        <div class="section-title">Launch Summary</div>
+        <div id="summary-card"></div>
+      </div>
+
+      <div class="section" id="deploy-section">
+        <button type="button" class="btn-primary" id="btn_launch" style="width:100%">Launch Agent</button>
+        <div class="launch-error hidden" id="launch-error"></div>
+      </div>
+
+      <div class="launch-success hidden" id="launch-success"></div>
+
+      <div class="nav-row">
+        <button type="button" class="btn-back" id="btn_back_2">Back</button>
+        <span></span>
+      </div>
+    </div>
+    </div><!-- /launch-content -->
+  </main>
+
+  <script type="module" src="/src/launch.ts"></script>
+</body>
+</html>

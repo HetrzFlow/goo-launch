@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/png" href="/favicon.png" />
+  <meta name="description" content="Launch and manage Goo-powered economic agents on BSC." />
+  <meta property="og:title" content="Docs - Goo Economy" />
+  <meta property="og:description" content="Launch and manage Goo-powered economic agents on BSC." />
+  <meta property="og:image" content="https://launchgoo.hertzflow.xyz/og-image.png" />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Docs - Goo Economy" />
+  <meta name="twitter:description" content="Launch and manage Goo-powered economic agents on BSC." />
+  <meta name="twitter:image" content="https://launchgoo.hertzflow.xyz/og-image.png" />
+  <title>Docs - Goo Economy</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet" /></noscript>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: #f8f8f7;
+      color: #000000;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      font-size: 15px;
+      line-height: 1.5;
+    }
+    .docs-layout {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 32px 24px;
+      display: flex;
+      gap: 32px;
+      min-height: calc(100vh - 60px);
+    }
+    .docs-sidebar {
+      width: 240px;
+      flex-shrink: 0;
+      position: sticky;
+      top: 32px;
+      align-self: flex-start;
+    }
+    .docs-sidebar h2 {
+      font-size: 14px;
+      font-weight: 600;
+      color: #000000;
+      margin-bottom: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    .docs-sidebar a {
+      display: block;
+      padding: 6px 12px;
+      border-radius: 8px;
+      color: #4D4D4D;
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 500;
+      transition: background .15s, color .15s;
+      margin-bottom: 2px;
+    }
+    .docs-sidebar a:hover { background: #ebebeb; color: #000; }
+    .docs-sidebar a.active { background: #F3F4F6; color: #000; }
+    .docs-content {
+      flex: 1;
+      min-width: 0;
+      background: #fff;
+      border: 1px solid #ebebeb;
+      border-radius: 16px;
+      padding: 40px 48px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+    }
+    .docs-loading {
+      color: #B2B2B2;
+      font-size: 14px;
+      padding: 40px;
+      text-align: center;
+    }
+
+    /* Markdown styles */
+    .docs-content h1 { font-size: 28px; font-weight: 600; color: #000000; margin: 0 0 16px; letter-spacing: -0.02em; border-bottom: 1px solid #ebebeb; padding-bottom: 12px; }
+    .docs-content h2 { font-size: 22px; font-weight: 600; color: #000000; margin: 32px 0 12px; letter-spacing: -0.01em; }
+    .docs-content h3 { font-size: 17px; font-weight: 600; color: #000000; margin: 24px 0 8px; }
+    .docs-content h4 { font-size: 15px; font-weight: 600; color: #000000; margin: 20px 0 6px; }
+    .docs-content p { margin: 0 0 12px; line-height: 1.7; }
+    .docs-content ul, .docs-content ol { margin: 0 0 12px 24px; }
+    .docs-content li { margin-bottom: 4px; line-height: 1.6; }
+    .docs-content a { color: #00C7D2; text-decoration: none; }
+    .docs-content a:hover { text-decoration: underline; }
+    .docs-content code {
+      background: #f0f0ef;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 13px;
+      font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+    }
+    .docs-content pre {
+      background: #1e1e1e;
+      color: #d4d4d4;
+      padding: 16px 20px;
+      border-radius: 10px;
+      overflow-x: auto;
+      margin: 0 0 16px;
+      line-height: 1.5;
+    }
+    .docs-content pre code {
+      background: none;
+      padding: 0;
+      font-size: 13px;
+      color: inherit;
+    }
+    .docs-content table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 0 0 16px;
+      font-size: 14px;
+    }
+    .docs-content th, .docs-content td {
+      padding: 8px 12px;
+      border: 1px solid #ebebeb;
+      text-align: left;
+    }
+    .docs-content th { background: #f8f8f7; font-weight: 600; }
+    .docs-content blockquote {
+      border-left: 3px solid #ebebeb;
+      padding: 8px 16px;
+      margin: 0 0 12px;
+      color: #4D4D4D;
+      background: #fafaf9;
+      border-radius: 0 8px 8px 0;
+    }
+    .docs-content hr {
+      border: none;
+      border-top: 1px solid #ebebeb;
+      margin: 24px 0;
+    }
+    .docs-content img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 8px;
+    }
+
+    /* Language toggle */
+    .lang-toggle {
+      display: flex;
+      gap: 4px;
+      margin-bottom: 16px;
+    }
+    .lang-toggle button {
+      padding: 4px 12px;
+      border: 1px solid #ebebeb;
+      border-radius: 6px;
+      background: #fff;
+      color: #4D4D4D;
+      font-family: inherit;
+      font-size: 12px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background .15s, color .15s;
+    }
+    .lang-toggle button.active { background: #00C7D2; color: #fff; border-color: #00C7D2; }
+
+    @media (max-width: 768px) {
+      .docs-layout { flex-direction: column; }
+      .docs-sidebar { width: 100%; position: static; display: flex; flex-wrap: wrap; gap: 4px; }
+      .docs-sidebar h2 { width: 100%; }
+      .docs-content { padding: 24px 20px; }
+    }
+  </style>
+  <script type="module" crossorigin src="/assets/docs-cwsxgBNV.js"></script>
+  <link rel="modulepreload" crossorigin href="/assets/auth-D598SpUJ.js">
+  <link rel="stylesheet" crossorigin href="/assets/auth-BIOB_lb2.css">
+</head>
+<body>
+  <div class="docs-layout">
+    <aside class="docs-sidebar" id="docs-sidebar"></aside>
+    <article class="docs-content" id="docs-content">
+      <div class="docs-loading">Loading...</div>
+    </article>
+  </div>
+</body>
+</html>

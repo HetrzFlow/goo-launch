@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/png" href="/favicon.png" />
+  <meta name="description" content="Launch and manage Goo-powered economic agents on BSC." />
+  <meta property="og:title" content="Goo Dashboard - Goo Economy" />
+  <meta property="og:description" content="Launch and manage Goo-powered economic agents on BSC." />
+  <meta property="og:image" content="https://launchgoo.hertzflow.xyz/og-image.png" />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Goo Dashboard - Goo Economy" />
+  <meta name="twitter:description" content="Launch and manage Goo-powered economic agents on BSC." />
+  <meta name="twitter:image" content="https://launchgoo.hertzflow.xyz/og-image.png" />
+  <title>Goo Dashboard - Goo Economy</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet" /></noscript>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: #f8f8f7;
+      color: #000000;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      font-size: 15px;
+      line-height: 1.5;
+    }
+    main {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 32px 24px;
+    }
+    h1 {
+      font-size: 24px;
+      font-weight: 600;
+      color: #000000;
+      margin-bottom: 32px;
+      letter-spacing: -0.02em;
+    }
+    .card {
+      background: #fff;
+      border-radius: 16px;
+      padding: 24px;
+      margin-bottom: 20px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+      overflow-x: auto;
+    }
+    .card h2 {
+      color: #4D4D4D;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 20px;
+      font-weight: 600;
+    }
+    .stats { display: flex; gap: 16px; }
+    .stat {
+      flex: 1;
+      text-align: center;
+      padding: 24px 16px;
+      background: #f8f8f7;
+      border: 1px solid #ebebeb;
+      border-radius: 12px;
+    }
+    .stat .num {
+      font-size: 32px;
+      color: #000000;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+    }
+    .stat .label {
+      font-size: 12px;
+      color: #808080;
+      margin-top: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      font-weight: 500;
+    }
+    table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    th {
+      text-align: left;
+      color: #808080;
+      padding: 10px 12px;
+      border-bottom: 1px solid #ebebeb;
+      font-weight: 500;
+      font-size: 12px;
+      white-space: nowrap;
+    }
+    td {
+      padding: 12px;
+      border-bottom: 1px solid #f5f5f4;
+      color: #000000;
+      white-space: nowrap;
+      max-width: 300px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: #fafaf9; }
+    .btn-del {
+      background: none;
+      border: 1px solid #f5d5d5;
+      color: #e05050;
+      padding: 4px 12px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-family: inherit;
+      font-size: 12px;
+      font-weight: 500;
+      margin-top: 0;
+      transition: background .2s;
+    }
+    .btn-del:hover { background: #fdf5f5; }
+    .empty { color: #B2B2B2; font-style: normal; padding: 24px 12px; }
+    .scan-link { color: #0081f2; text-decoration: none; }
+    .scan-link:hover { text-decoration: underline; }
+    .status-success { color: #22a06b; }
+    .status-failed { color: #e05050; }
+  </style>
+  <script type="module" crossorigin src="/assets/all-BrFlGiB4.js"></script>
+  <link rel="modulepreload" crossorigin href="/assets/auth-D598SpUJ.js">
+  <link rel="stylesheet" crossorigin href="/assets/auth-BIOB_lb2.css">
+</head>
+<body>
+  <main>
+    <h1>Goo Dashboard</h1>
+
+    <div class="card">
+      <h2>System Health</h2>
+      <div id="health-section"><span style="color:#B2B2B2;font-size:13px">Loading...</span></div>
+    </div>
+
+    <div class="card">
+      <h2>Stats</h2>
+      <div class="stats">
+        <div class="stat"><div class="num" id="stat-users">-</div><div class="label">Users</div></div>
+        <div class="stat"><div class="num" id="stat-contracts">-</div><div class="label">Contracts</div></div>
+        <div class="stat"><div class="num" id="stat-agenters">-</div><div class="label">Agenters</div></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>All Users</h2>
+      <table>
+        <thead><tr><th>ID</th><th>Wallet</th><th>Role</th><th>Created</th><th></th></tr></thead>
+        <tbody id="user-list"></tbody>
+      </table>
+    </div>
+
+    <div class="card">
+      <h2>All Contracts</h2>
+      <table>
+        <thead><tr><th>ID</th><th>Name</th><th>Address</th><th>Network</th><th>User ID</th><th>Created</th></tr></thead>
+        <tbody id="contract-list"></tbody>
+      </table>
+    </div>
+
+    <div class="card">
+      <h2>All Agenters</h2>
+      <table>
+        <thead><tr><th>Agent</th><th>Token</th><th>Contract</th><th>Status</th><th>Last Error</th><th>User ID</th><th>Created</th></tr></thead>
+        <tbody id="agenter-list"></tbody>
+      </table>
+    </div>
+
+    <div class="card">
+      <h2>All Transactions</h2>
+      <table>
+        <thead><tr><th>ID</th><th>Agenter</th><th>Method</th><th>Memo</th><th>Tx Hash</th><th>Status</th><th>User ID</th><th>Time</th></tr></thead>
+        <tbody id="tx-list"></tbody>
+      </table>
+    </div>
+  </main>
+
+</body>
+</html>

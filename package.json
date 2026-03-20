@@ -1,0 +1,27 @@
+{
+  "name": "goo-example",
+  "version": "0.1.0",
+  "description": "End-to-end example: Cloudflare Worker + agent (OpenClaw) + LLM router + goo-core as system sidecar, interacting with goo-contracts",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "start": "node index.js",
+    "dev": "node index.js",
+    "app:dev": "bun run --cwd app dev",
+    "app:deploy": "bun run --cwd app deploy"
+  },
+  "keywords": [
+    "goo",
+    "example",
+    "agent",
+    "openclaw",
+    "sidecar"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "ethers": "^6.16.0"
+  },
+  "devDependencies": {
+    "@types/ssh2": "^1.15.5"
+  }
+}

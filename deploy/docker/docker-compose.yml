@@ -1,0 +1,65 @@
+# Goo Agent — OpenClaw + goo-core
+#
+# Usage:
+#   1. Build & push:  bash scripts/build-push.sh --push
+#   2. Deploy:        bash scripts/dev-agos.sh  (or dev-byod.sh)
+
+services:
+  goo-agent:
+    image: ${DOCKER_IMAGE:-hgamiui9/goo-agos:v0.1.1}
+    container_name: ${CONTAINER_NAME:-goo-agent}
+    network_mode: host
+    user: "0:0"
+    environment:
+      HOME: /root
+      TERM: xterm-256color
+      # AGOS Platform
+      AGOS_API_BASE_URL: ${AGOS_API_BASE_URL:-https://claw-api.agos.fun}
+      AGOS_AGENT_API_KEY: ${AGOS_AGENT_API_KEY:-}
+      # OpenClaw
+      OPENCLAW_GATEWAY_TOKEN: ${OPENCLAW_GATEWAY_TOKEN}
+      OPENCLAW_TOKEN: ${OPENCLAW_GATEWAY_TOKEN}
+      GATEWAY_PORT: ${GATEWAY_PORT:-18789}
+      OPENCLAW_MODEL: ${OPENCLAW_MODEL:-claude-sonnet-4-6}
+      # Goo Server (agent config fetched on boot)
+      GOO_SERVER_URL: ${GOO_SERVER_URL:-}
+      AGENT_ID: ${AGENT_ID:-}
+      AGENT_RUNTIME_TOKEN: ${AGENT_RUNTIME_TOKEN:-}
+      CONTROL_PORT: ${CONTROL_PORT:-}
+      AGENT_NAME: ${AGENT_NAME:-Goo Agent}
+      # LLM (BYOD/direct mode — used when AGOS key is not set)
+      OPENAI_BASE_URL: ${OPENAI_BASE_URL:-}
+      OPENAI_API_KEY: ${OPENAI_API_KEY:-}
+      # goo-core env
+      RPC_URL: ${RPC_URL:-https://bsc-testnet-rpc.publicnode.com}
+      CHAIN_ID: ${CHAIN_ID:-97}
+      TOKEN_ADDRESS: ${TOKEN_ADDRESS}
+      WALLET_PRIVATE_KEY: ${WALLET_PRIVATE_KEY:-}
+      LLM_MODEL: ${LLM_MODEL:-deepseek-chat}
+      HEARTBEAT_INTERVAL_MS: ${HEARTBEAT_INTERVAL_MS:-30000}
+      MAX_TOOL_ROUNDS: ${MAX_TOOL_ROUNDS:-5}
+      DATA_DIR: /root/.goo-core/data
+      # Node options
+      NODE_OPTIONS: "--max-old-space-size=2048 --use-env-proxy"
+      # Proxy (optional)
+      http_proxy: ${HTTP_PROXY:-}
+      https_proxy: ${HTTPS_PROXY:-}
+      all_proxy: ${ALL_PROXY:-}
+      NODE_TLS_REJECT_UNAUTHORIZED: "0"
+    volumes:
+      - goo-openclaw-workspace:/root/.openclaw/workspace
+      - goo-core-data:/root/.goo-core
+      - goo-sandbox-logs:/var/log/sandbox
+    init: true
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://127.0.0.1:${GATEWAY_PORT:-18789}/healthz').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
+      interval: 30s
+      timeout: 5s
+      retries: 5
+      start_period: 90s
+
+volumes:
+  goo-openclaw-workspace:
+  goo-core-data:
+  goo-sandbox-logs:

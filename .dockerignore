@@ -1,0 +1,10 @@
+node_modules
+**/node_modules
+frontend/dist
+packages/*/dist
+contracts/artifacts
+contracts/cache
+contracts/typechain-types
+deploy/docker/.env
+.git
+*.log
