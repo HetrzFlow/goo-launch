@@ -185,7 +185,7 @@ make docker-up            # Docker 栈（OpenClaw + goo-core）
 | Defi Support | [@PancakeSwap](https://x.com/PancakeSwap) |
 | Launchpad support | [@flapdotsh](https://x.com/flapdotsh)、[@fourdotmemezh](https://x.com/fourdotmemezh)、[@virtuals_io](https://x.com/virtuals_io)、[@milady_bsc](https://x.com/milady_bsc)、[@shawmakesmagic](https://x.com/shawmakesmagic) |
 | Security Support | [@GoPlusSecurity](https://x.com/GoPlusSecurity) |
-| General Support | [@TrustWallet](https://x.com/TrustWallet)、[@givemeonepeach](https://x.com/givemeonepeach) |
+| General Support | [@TrustWallet](https://x.com/TrustWallet)、[@peachlfg](https://x.com/peachlfg) |
 
 ---
 
