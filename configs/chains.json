@@ -1,0 +1,11 @@
+{
+  "robinhood": {
+    "chainId": 4663
+  },
+  "bsc": {
+    "chainId": 56
+  },
+  "base": {
+    "chainId": 8453
+  }
+}
